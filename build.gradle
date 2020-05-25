@@ -1,0 +1,63 @@
+plugins {
+    id 'application'
+    id 'eclipse'
+
+    //id 'org.beryx.jlink' version '2.17.7' // modular
+    //id 'org.beryx.runtime' version '1.8.4'  // non modular
+
+//    id 'com.github.spotbugs' version '4.2.1'
+//    id 'checkstyle'
+//    id 'pmd'
+
+    id 'net.saliman.properties' version '1.5.1'
+    id 'com.github.ben-manes.versions' version '0.28.0'
+    id 'org.ajoberstar.reckon' version '0.12.0'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+
+    compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.13.3'
+
+    //testImplementation('org.junit.jupiter:junit-jupiter:5.6.0') // as junit doc says
+    // as gradle doc says
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
+
+//    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.10.1'
+//    spotbugsPlugins 'com.mebigfatguy.sb-contrib:sb-contrib:7.4.7'
+}
+
+if(!project.hasProperty('installerType')){
+    project.ext.installerType = 'exe'
+}
+
+if(!project.hasProperty('reckon.scope')){
+    project.ext.'reckon.scope' = 'patch'    // override default 'minor'
+}
+
+reckon {
+    scopeFromProp()
+    stageFromProp('dev', 'final')
+}
+
+def isNonStable = { String version ->
+    def stableKeyword = ['RELEASE', 'FINAL', 'GA'].any { it -> version.toUpperCase().contains(it) }
+    def regex = /^[0-9,.v-]+(-r)?$/
+    return !stableKeyword && !(version ==~ regex)
+}
+
+dependencyUpdates {
+    rejectVersionIf {
+        isNonStable(it.candidate.version)
+    }
+}
+
+test {
+    useJUnitPlatform()
+    // do not perform unit tests
+    exclude 'org/sergeys/cookbook/**'
+}
