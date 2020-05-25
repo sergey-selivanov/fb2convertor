@@ -23,7 +23,16 @@ dependencies {
     compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.13.3'
 
     // TODO too much parsers included, reduce to several
-    runtime 'org.apache.tika:tika-parsers:1.24.1' // TODO runtime vs compile?
+    // TODO runtime vs compile?
+    runtime ('org.apache.tika:tika-parsers:1.24.1') {
+        exclude module: 'xml-apis'  // "The package org.xml.sax is accessible from more than one module: <unnamed>, java.xml"
+// group: 'xml-apis',
+
+        exclude module: 'vorbis-java-tika'
+        exclude module: 'vorbis-java-core'
+        exclude module: 'jmatio' // mathlab?
+    }
+
 
     //testImplementation('org.junit.jupiter:junit-jupiter:5.6.0') // as junit doc says
     // as gradle doc says

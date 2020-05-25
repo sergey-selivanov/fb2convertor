@@ -50,8 +50,13 @@ class TikaTest {
     @Test
     void testParse() {
         try {
-            String doc = "d:/git/fb2convertor-samples/1.doc";
-            String out = "j:/temp/tika-output.html";
+            //String doc = "d:/git/fb2convertor-samples/1.doc";
+            //String doc = "d:/git/fb2convertor-samples/2.pdf";
+            String doc = "d:/git/fb2convertor-samples/3.pdf";
+
+            //String out = "j:/temp/tika-output-1.html";
+            //String out = "j:/temp/tika-output-2.html";
+            String out = "j:/temp/tika-output-3.html";
 
             String s = parseToHTML(doc);
             //System.out.println(s);
