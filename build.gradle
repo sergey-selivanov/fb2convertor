@@ -75,3 +75,11 @@ test {
     // do not perform unit tests
     exclude 'org/sergeys/cookbook/**'
 }
+
+// "the input line is too long"
+// https://github.com/gradle/gradle/issues/1989
+startScripts {
+    doLast {
+        windowsScript.text = windowsScript.text.replaceAll('set CLASSPATH=.*', 'set CLASSPATH=.;%APP_HOME%/lib/*')
+    }
+}
