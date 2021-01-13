@@ -10,8 +10,8 @@ plugins {
 //    id 'pmd'
 
     id 'net.saliman.properties' version '1.5.1'
-    id 'com.github.ben-manes.versions' version '0.28.0'
-    id 'org.ajoberstar.reckon' version '0.12.0'
+    id 'com.github.ben-manes.versions' version '0.36.0'
+    id 'org.ajoberstar.reckon' version '0.13.0'
 }
 
 repositories {
@@ -20,11 +20,11 @@ repositories {
 
 dependencies {
 
-    compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.13.3'
+    compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.14.0'
 
     // TODO too much parsers included, reduce to several
     // TODO runtime vs compile?
-    runtime ('org.apache.tika:tika-parsers:1.24.1') {
+    runtime ('org.apache.tika:tika-parsers:1.25') {
         exclude module: 'xml-apis'  // "The package org.xml.sax is accessible from more than one module: <unnamed>, java.xml"
 // group: 'xml-apis',
 
@@ -36,8 +36,8 @@ dependencies {
 
     //testImplementation('org.junit.jupiter:junit-jupiter:5.6.0') // as junit doc says
     // as gradle doc says
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 
 //    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.10.1'
 //    spotbugsPlugins 'com.mebigfatguy.sb-contrib:sb-contrib:7.4.7'

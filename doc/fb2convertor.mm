@@ -24,8 +24,12 @@
 <node CREATED="1590398996467" ID="ID_1349329369" MODIFIED="1590399010147" POSITION="right" TEXT="pack as portable?">
 <node CREATED="1590399011303" ID="ID_1671633948" MODIFIED="1590399020729" TEXT="image -&gt; zip"/>
 </node>
-<node CREATED="1590415537370" ID="ID_1118989661" MODIFIED="1590415539707" POSITION="left" TEXT="LInks">
+<node CREATED="1590415537370" ID="ID_1118989661" MODIFIED="1590512162140" POSITION="left" TEXT="Links">
 <node CREATED="1590415550510" LINK="https://tika.apache.org/index.html" MODIFIED="1590415550510" TEXT="https://tika.apache.org/index.html"/>
+<node CREATED="1590511666906" ID="ID_265719649" LINK="https://stackoverflow.com/questions/17408865/xsd-jaxb-sequence-of-multiple-elements-bounded-by-elements-with-the-same-name" MODIFIED="1590511666906" TEXT="https://stackoverflow.com/questions/17408865/xsd-jaxb-sequence-of-multiple-elements-bounded-by-elements-with-the-same-name"/>
+<node CREATED="1590512156205" LINK="https://github.com/patexoid/fb2-java" MODIFIED="1590512156205" TEXT="https://github.com/patexoid/fb2-java"/>
+<node CREATED="1590512888444" LINK="https://dzone.com/articles/running-jaxb-xjc-compiler-with-openjdk-11" MODIFIED="1590512888444" TEXT="https://dzone.com/articles/running-jaxb-xjc-compiler-with-openjdk-11"/>
+<node CREATED="1590512985554" LINK="https://github.com/eclipse-ee4j/jaxb-ri" MODIFIED="1590512985554" TEXT="https://github.com/eclipse-ee4j/jaxb-ri"/>
 </node>
 </node>
 </map>
