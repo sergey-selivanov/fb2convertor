@@ -51,7 +51,7 @@ class TikaTest {
 //    }
 
     @Test
-    void testParse() {
+    void testParseToHtml() {
         try {
             //String doc = "d:/git/fb2convertor-samples/1.doc";
             //String doc = "d:/git/fb2convertor-samples/2.pdf";
@@ -76,7 +76,7 @@ class TikaTest {
     }
 
     @Test
-    void testParse2() throws IOException {
+    void testParseToFb2() throws IOException {
         //String doc = "d:/git/fb2convertor-samples/1.doc";
         String doc = "d:/git/fb2convertor-samples/2.pdf";
         //String doc = "d:/git/fb2convertor-samples/3.pdf";
@@ -96,7 +96,7 @@ class TikaTest {
     }
 
     @Test
-    void testParse3() throws IOException {
+    void testParsePrint() throws IOException {
         //String doc = "d:/git/fb2convertor-samples/1.doc";
         //String doc = "d:/git/fb2convertor-samples/2.pdf";
         String doc = "d:/git/fb2convertor-samples/3.pdf";

@@ -20,11 +20,15 @@ repositories {
 
 dependencies {
 
+    compile 'javax.xml.bind:jaxb-api:2.3.1'
+    compile 'org.apache.commons:commons-lang3:3.11'
+
     compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.14.0'
 
     // TODO too much parsers included, reduce to several
     // TODO runtime vs compile?
     runtime ('org.apache.tika:tika-parsers:1.25') {
+    //compile ('org.apache.tika:tika-parsers:1.25') {
         exclude module: 'xml-apis'  // "The package org.xml.sax is accessible from more than one module: <unnamed>, java.xml"
 // group: 'xml-apis',
 
