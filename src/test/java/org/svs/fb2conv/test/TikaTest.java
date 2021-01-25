@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -11,16 +12,23 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.apache.tika.exception.TikaException;
+import org.apache.tika.extractor.EmbeddedDocumentExtractor;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
+import org.apache.tika.parser.ParseContext;
+import org.apache.tika.parser.pdf.PDFParserConfig;
 import org.apache.tika.sax.ToXMLContentHandler;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.svs.fb2conv.Fb2ContentHandler;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
@@ -28,6 +36,8 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 
 class TikaTest {
+
+    private Logger log = LoggerFactory.getLogger(TikaTest.class);
 
     @BeforeAll
     static void setUpBeforeClass() throws Exception {
@@ -78,12 +88,14 @@ class TikaTest {
     @Test
     void testParseToFb2() throws IOException {
         //String doc = "d:/git/fb2convertor-samples/1.doc";
-        String doc = "d:/git/fb2convertor-samples/2.pdf";
+        //String doc = "d:/git/fb2convertor-samples/2.pdf";
         //String doc = "d:/git/fb2convertor-samples/3.pdf";
+        String doc = "d:/git/fb2convertor-samples/ugh.pdf";
 
         InputStream is = parseCustomHandler(doc);
 
-        String out = "j:/temp/fbook-output.fb2";
+        //String out = "j:/temp/fbook-output.fb2";
+        String out = "d:/git/fb2convertor-samples/output/fbook-output.fb2";
         FileOutputStream fos;
         try {
             fos = new FileOutputStream(out);
@@ -95,11 +107,85 @@ class TikaTest {
         }
     }
 
+    private static void setPdfConfig(ParseContext context) {
+        PDFParserConfig pdfConfig = new PDFParserConfig();
+        pdfConfig.setExtractInlineImages(true);
+        pdfConfig.setExtractUniqueInlineImagesOnly(true);
+
+        context.set(PDFParserConfig.class, pdfConfig);
+    }
+
+    @Test
+    void testParsePdf() throws IOException {
+
+        // https://stackoverflow.com/questions/25783212/extract-images-from-pdf-with-apache-tika
+
+        //String doc = "d:/git/fb2convertor-samples/1.doc";
+        //String doc = "d:/git/fb2convertor-samples/2.pdf";
+        //String doc = "d:/git/fb2convertor-samples/3.pdf";
+
+        String doc = "d:/git/fb2convertor-samples/ugh.pdf";
+        String outPath = "d:/git/fb2convertor-samples/output";
+
+        AutoDetectParser parser = new AutoDetectParser();
+        //ContentHandler handler = new ToXMLContentHandler();
+        Fb2ContentHandler handler = new Fb2ContentHandler();
+        Metadata metadata = new Metadata();
+        ParseContext context = new ParseContext();
+        EmbeddedDocumentExtractor embeddedDocumentExtractor = new EmbeddedDocumentExtractor() {
+
+            @Override
+            public boolean shouldParseEmbedded(Metadata metadata) {
+                return true;
+            }
+
+            @Override
+            public void parseEmbedded(InputStream stream, ContentHandler handler, Metadata metadata, boolean outputHtml)
+                    throws SAXException, IOException {
+
+                log.debug("parseEmbedded");
+
+                Path outputDir = new File(outPath + "_").toPath();
+                Files.createDirectories(outputDir);
+
+                Path outputPath = new File(outputDir.toString() + "/" + metadata.get(Metadata.RESOURCE_NAME_KEY)).toPath();
+                Files.deleteIfExists(outputPath);
+                Files.copy(stream, outputPath);
+            }
+        };
+
+        context.set(EmbeddedDocumentExtractor.class, embeddedDocumentExtractor);
+        context.set(AutoDetectParser.class, parser);
+        setPdfConfig(context);
+
+
+        try (InputStream stream = new FileInputStream(doc)) {
+            parser.parse(stream, handler, metadata, context);
+        } catch (SAXException | TikaException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        InputStream is = handler.getFbook();
+        String out = "d:/git/fb2convertor-samples/output/fbook-output.fb2";
+        FileOutputStream fos;
+        try {
+            fos = new FileOutputStream(out);
+            is.transferTo(fos);
+            fos.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+
     @Test
     void testParsePrint() throws IOException {
         //String doc = "d:/git/fb2convertor-samples/1.doc";
         //String doc = "d:/git/fb2convertor-samples/2.pdf";
-        String doc = "d:/git/fb2convertor-samples/3.pdf";
+        //String doc = "d:/git/fb2convertor-samples/3.pdf";
+        String doc = "d:/git/fb2convertor-samples/ugh.pdf";
 
         parsePrintHandler(doc);
     }
@@ -157,7 +243,8 @@ class TikaTest {
 
                 @Override
                 public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
-                    System.out.print("- " + qName + ": ");
+                    //System.out.print("- " + qName + ": ");
+                    log.debug("-- {}", qName);
                     inElement = true;
 
                 }

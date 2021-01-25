@@ -2,6 +2,8 @@ package org.svs.fb2conv;
 
 import java.io.InputStream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
@@ -11,10 +13,15 @@ import fb2Generator.Fb2Creator;
 
 public class Fb2ContentHandler implements ContentHandler {
 
+    private Logger log = LoggerFactory.getLogger(Fb2ContentHandler.class);
+
     Fb2Creator creator;
     boolean inPElement;
 
     public Fb2ContentHandler() {
+
+        log.debug("Fb2ContentHandler()");
+
         creator = new Fb2Creator("Test Book");
         inPElement = false;
     }
@@ -59,6 +66,8 @@ public class Fb2ContentHandler implements ContentHandler {
     @Override
     public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
 
+        log.debug("> {}", qName);
+
         if("p".equals(qName)) {
             inPElement = true;
             sb = new StringBuilder();
@@ -68,6 +77,9 @@ public class Fb2ContentHandler implements ContentHandler {
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
+
+        log.debug("< {}", qName);
+
         if("p".equals(qName)) {
 
             inPElement = false;
