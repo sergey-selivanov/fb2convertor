@@ -125,6 +125,24 @@ class TikaTest {
         }
     }
 
+    @Test
+    void testParseHtmlToFb2() throws IOException {
+        String doc = "d:/git/fb2convertor-samples/gilyar.htm";
+
+        InputStream is = parseFb2ContentHandler(doc);
+
+        String out = "d:/git/fb2convertor-samples/output/fbook-output.fb2";
+        FileOutputStream fos;
+        try {
+            fos = new FileOutputStream(out);
+            is.transferTo(fos);
+            fos.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
     private static void setPdfConfig(ParseContext context) {
         PDFParserConfig pdfConfig = new PDFParserConfig();
         pdfConfig.setExtractInlineImages(true);
@@ -138,8 +156,8 @@ class TikaTest {
 
         // https://stackoverflow.com/questions/25783212/extract-images-from-pdf-with-apache-tika
 
-        //String doc = "d:/git/fb2convertor-samples/ugh.pdf";
-        String doc = "D:/git/fb2convertor-samples/100-rasskazov-o-stykovke.pdf";
+        String doc = "d:/git/fb2convertor-samples/ugh.pdf";
+        //String doc = "D:/git/fb2convertor-samples/100-rasskazov-o-stykovke.pdf";
         String outPath = "d:/git/fb2convertor-samples/output";
 
         AutoDetectParser parser = new AutoDetectParser();
@@ -151,8 +169,8 @@ class TikaTest {
 
             @Override
             public boolean shouldParseEmbedded(Metadata metadata) {
-                return true;
-                //return false;
+                //return true;
+                return false;
             }
 
             @Override

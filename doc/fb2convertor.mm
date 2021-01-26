@@ -36,6 +36,10 @@
 </node>
 <node CREATED="1611612997884" ID="ID_1718583893" LINK="https://www.aconvert.com/format/fb2/" MODIFIED="1611613002245" TEXT="https://www.aconvert.com/format/fb2/"/>
 <node CREATED="1611612666743" ID="ID_1381546316" LINK="https://github.com/evpobr/fictionbookeditor" MODIFIED="1611612674404" TEXT="https://github.com/evpobr/fictionbookeditor"/>
+<node CREATED="1611629625845" ID="ID_1523110064" MODIFIED="1611629629597" TEXT="extract images">
+<node CREATED="1611629630523" ID="ID_437161994" LINK="https://stackoverflow.com/questions/31303735/how-to-extract-images-from-a-file-using-apache-tika/39524633" MODIFIED="1611629635089" TEXT="https://stackoverflow.com/questions/31303735/how-to-extract-images-from-a-file-using-apache-tika/39524633"/>
+<node CREATED="1611629654773" ID="ID_1954815104" LINK="https://stackoverflow.com/questions/25783212/extract-images-from-pdf-with-apache-tika" MODIFIED="1611629658638" TEXT="https://stackoverflow.com/questions/25783212/extract-images-from-pdf-with-apache-tika"/>
+</node>
 </node>
 </node>
 </map>

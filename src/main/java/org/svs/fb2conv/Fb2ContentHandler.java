@@ -135,15 +135,13 @@ public class Fb2ContentHandler implements ContentHandler {
         //if("".equals(qName)) {}
 
         if("p".equals(qName)) {
-
             inPElement = false;
             pType.getContent().add(sb.toString().trim());
             creator.addP(pType);
         }
-
-
-
     }
+
+    boolean hyphenRemoved = false;
 
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
@@ -157,35 +155,42 @@ public class Fb2ContentHandler implements ContentHandler {
 //            }
 //        }
 
-        log.debug("start {} length {} ch.length {}", start, length, ch.length);
+//        log.debug("start {} length {} ch.length {}", start, length, ch.length);
 
         if(length > 0) {
             if(ch[start + length - 1] == '-') {	// hyphenation at the end of line
                 sb.append(ch, start, length - 1);
+                hyphenRemoved = true;
             }
             else {
                 sb.append(ch, start, length);
-                sb.append(' ');
+                //sb.append(' '); // adds extra space in the middle of line in html. needed for newlines in pdf.
             }
         }
     }
 
     @Override
     public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
-        // TODO Auto-generated method stub
+        log.debug("ignorableWhitespace");
 
+        if(length == 1 && ch[start] == '\n' && hyphenRemoved) {
+            log.debug("do not add space: hyphenRemoved");
+            hyphenRemoved = false;
+        }
+        else {
+            // TODO how to correctly handle newlines in pdf? will double spaces occur?
+            sb.append(' ');
+        }
     }
 
     @Override
     public void processingInstruction(String target, String data) throws SAXException {
-        // TODO Auto-generated method stub
-
+        log.debug("processingInstruction: {}", target);
     }
 
     @Override
     public void skippedEntity(String name) throws SAXException {
-        // TODO Auto-generated method stub
-
+        log.debug("skipped entity: {}", name);
     }
 
 }
