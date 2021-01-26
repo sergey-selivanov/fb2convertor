@@ -24,8 +24,6 @@ import java.math.BigInteger;
 
 /**
  * Created by Alexey on 11/5/2016.
- *
- * Modified: svs 13 jan 2021, extra constructor and set title
  */
 public class Fb2Creator {
     private static final ObjectFactory F = new ObjectFactory();
@@ -53,28 +51,6 @@ public class Fb2Creator {
         description.setTitleInfo(titleInfo);
         fbook.setDescription(description);
     }
-
-    public Fb2Creator() {
-        try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(FictionBook.class);
-            jaxbMarshaller = jaxbContext.createMarshaller();
-        } catch (JAXBException e) {
-            throw new UnsupportedOperationException();
-        }
-
-        fbook = new FictionBook();
-        titleInfo = null;
-    }
-
-    public void setBookTitle(String title) {
-        FictionBook.Description description = F.createFictionBookDescription();
-        TitleInfoType titleInf = F.createTitleInfoType();
-
-        titleInf.setBookTitle(getTextFieldType(title));
-        description.setTitleInfo(titleInf);
-        fbook.setDescription(description);
-    }
-
 
     private Fb2Creator addAuthor(String firstName, String middleName, String lastName, String homePage, String email) {
         TitleInfoType.Author author = F.createTitleInfoTypeAuthor();

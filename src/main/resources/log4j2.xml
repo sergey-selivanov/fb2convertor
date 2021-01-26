@@ -5,10 +5,17 @@
         <Console name="Console" target="SYSTEM_OUT">
              <PatternLayout pattern="%5p [%t] (%F:%L) - %m%n"/>
         </Console>
+
+
 <!--
+    see all system properties:
+    java -XshowSettings:all
+    https://stackoverflow.com/questions/31022320/what-is-the-full-list-of-standard-keys-recognized-by-the-java-system-getproperty
+ -->
+
         <RollingFile name="Rolling"
-            fileName="${sys:log4j.log.file}"
-            filePattern="$${sys:log4j.log.file}-%d{yyyyMMMdd-HH-mm}.%i.txt">
+            fileName="${sys:java.io.tmpdir}/fb2convertor-log.txt"
+            filePattern="$${sys:java.io.tmpdir}/fb2convertor-log-%d{yyyyMMMdd-HH-mm}.%i.txt">
 
             <PatternLayout pattern="%d %5p [%t] (%F:%L) - %m%n" charset="UTF-8"/>
             <Policies>
@@ -16,15 +23,18 @@
             </Policies>
             <DefaultRolloverStrategy max="10"/>
         </RollingFile>
- -->
+
     </Appenders>
 
     <Loggers>
     <!-- TRACE, DEBUG, INFO, WARN, ERROR, ALL or OFF -->
         <Root level="debug">
             <AppenderRef ref="Console" />
-            <!--   AppenderRef ref="Rolling" / -->
+            <AppenderRef ref="Rolling" />
         </Root>
-        <Logger name="h2database" level="warn"/>
+
+        <Logger name="jdk.vm.ci.meta.MetaUtil" level="warn"/> <!-- ?? -->
+        <Logger name="org.apache.pdfbox.io.ScratchFileBuffer" level="warn"/>
+
     </Loggers>
 </Configuration>

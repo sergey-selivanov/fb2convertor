@@ -92,9 +92,27 @@ class TikaTest {
         //String doc = "d:/git/fb2convertor-samples/3.pdf";
         String doc = "d:/git/fb2convertor-samples/ugh.pdf";
 
-        InputStream is = parseCustomHandler(doc);
+        InputStream is = parseFb2ContentHandler(doc);
 
         //String out = "j:/temp/fbook-output.fb2";
+        String out = "d:/git/fb2convertor-samples/output/fbook-output.fb2";
+        FileOutputStream fos;
+        try {
+            fos = new FileOutputStream(out);
+            is.transferTo(fos);
+            fos.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void testParseDocToFb2() throws IOException {
+        String doc = "d:/git/fb2convertor-samples/sudmed.doc";
+
+        InputStream is = parseFb2ContentHandler(doc);
+
         String out = "d:/git/fb2convertor-samples/output/fbook-output.fb2";
         FileOutputStream fos;
         try {
@@ -116,19 +134,16 @@ class TikaTest {
     }
 
     @Test
-    void testParsePdf() throws IOException {
+    void testParsePdfToFb2() throws IOException {
 
         // https://stackoverflow.com/questions/25783212/extract-images-from-pdf-with-apache-tika
 
-        //String doc = "d:/git/fb2convertor-samples/1.doc";
-        //String doc = "d:/git/fb2convertor-samples/2.pdf";
-        //String doc = "d:/git/fb2convertor-samples/3.pdf";
-
-        String doc = "d:/git/fb2convertor-samples/ugh.pdf";
+        //String doc = "d:/git/fb2convertor-samples/ugh.pdf";
+        String doc = "D:/git/fb2convertor-samples/100-rasskazov-o-stykovke.pdf";
         String outPath = "d:/git/fb2convertor-samples/output";
 
         AutoDetectParser parser = new AutoDetectParser();
-        //ContentHandler handler = new ToXMLContentHandler();
+
         Fb2ContentHandler handler = new Fb2ContentHandler();
         Metadata metadata = new Metadata();
         ParseContext context = new ParseContext();
@@ -137,6 +152,7 @@ class TikaTest {
             @Override
             public boolean shouldParseEmbedded(Metadata metadata) {
                 return true;
+                //return false;
             }
 
             @Override
@@ -205,7 +221,7 @@ class TikaTest {
         }
     }
 
-    public InputStream parseCustomHandler(String doc) {
+    public InputStream parseFb2ContentHandler(String doc) {
         AutoDetectParser parser = new AutoDetectParser();
         Metadata metadata = new Metadata();
         Fb2ContentHandler handler = new Fb2ContentHandler();

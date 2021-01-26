@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
+import org.svs.fb2conv.Fb2Creator2;
 
 import fb2Generator.Fb2Creator;
 
@@ -34,7 +35,7 @@ class Fb2Test {
             fbook.setDescription(description);
             */
 
-            Fb2Creator creator = new Fb2Creator("Test Book");
+            Fb2Creator2 creator = new Fb2Creator2();
             creator.addContent("Ololololo");
             creator.addContent("More text");
             creator.addContent("Yet more text");
