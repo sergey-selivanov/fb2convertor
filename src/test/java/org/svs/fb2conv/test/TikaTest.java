@@ -29,6 +29,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.svs.fb2conv.Convertor;
+import org.svs.fb2conv.ConvertorException;
 import org.svs.fb2conv.Fb2ContentHandler;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
@@ -223,6 +225,21 @@ class TikaTest {
 
         parsePrintHandler(doc);
     }
+
+    @Test
+    void testConvertor() {
+        String doc = "d:/git/fb2convertor-samples/ugh.pdf";
+        String out = "d:/git/fb2convertor/build/ugh.fb2";
+
+        Convertor conv = new Convertor();
+        try {
+            conv.convert(doc, out, true);
+        } catch (ConvertorException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
 
     // https://tika.apache.org/1.24.1/examples.html
 
