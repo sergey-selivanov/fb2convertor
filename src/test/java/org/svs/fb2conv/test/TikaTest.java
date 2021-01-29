@@ -15,6 +15,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import javax.xml.bind.JAXBException;
+
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.extractor.EmbeddedDocumentExtractor;
 import org.apache.tika.metadata.Metadata;
@@ -93,16 +95,18 @@ class TikaTest {
         //String doc = "d:/git/fb2convertor-samples/3.pdf";
         String doc = "d:/git/fb2convertor-samples/ugh.pdf";
 
+        try {
         InputStream is = parseFb2ContentHandler(doc);
 
         //String out = "j:/temp/fbook-output.fb2";
         String out = "d:/git/fb2convertor-samples/output/fbook-output.fb2";
         FileOutputStream fos;
-        try {
+
+
             fos = new FileOutputStream(out);
             is.transferTo(fos);
             fos.close();
-        } catch (IOException e) {
+        } catch (IOException | JAXBException e) {
             e.printStackTrace();
         }
     }
@@ -111,15 +115,16 @@ class TikaTest {
     void testParseDocToFb2() throws IOException {
         String doc = "d:/git/fb2convertor-samples/sudmed.doc";
 
+        try {
         InputStream is = parseFb2ContentHandler(doc);
 
         String out = "d:/git/fb2convertor-samples/output/fbook-output.fb2";
         FileOutputStream fos;
-        try {
+
             fos = new FileOutputStream(out);
             is.transferTo(fos);
             fos.close();
-        } catch (IOException e) {
+        } catch (IOException | JAXBException e) {
             e.printStackTrace();
         }
     }
@@ -128,15 +133,16 @@ class TikaTest {
     void testParseHtmlToFb2() throws IOException {
         String doc = "d:/git/fb2convertor-samples/gilyar.htm";
 
+        try {
         InputStream is = parseFb2ContentHandler(doc);
 
         String out = "d:/git/fb2convertor-samples/output/fbook-output.fb2";
         FileOutputStream fos;
-        try {
+
             fos = new FileOutputStream(out);
             is.transferTo(fos);
             fos.close();
-        } catch (IOException e) {
+        } catch (IOException | JAXBException e) {
             e.printStackTrace();
         }
     }
@@ -197,14 +203,16 @@ class TikaTest {
             e.printStackTrace();
         }
 
+
+        try {
         InputStream is = handler.getFbook();
         String out = "d:/git/fb2convertor-samples/output/fbook-output.fb2";
         FileOutputStream fos;
-        try {
+
             fos = new FileOutputStream(out);
             is.transferTo(fos);
             fos.close();
-        } catch (IOException e) {
+        } catch (IOException | JAXBException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -251,7 +259,7 @@ class TikaTest {
         }
     }
 
-    public InputStream parseFb2ContentHandler(String doc) {
+    public InputStream parseFb2ContentHandler(String doc) throws JAXBException {
         AutoDetectParser parser = new AutoDetectParser();
         Metadata metadata = new Metadata();
         Fb2ContentHandler handler = new Fb2ContentHandler();

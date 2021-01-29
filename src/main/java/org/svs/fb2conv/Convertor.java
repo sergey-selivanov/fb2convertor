@@ -6,6 +6,8 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import javax.xml.bind.JAXBException;
+
 import org.apache.tika.config.TikaConfig;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.extractor.EmbeddedDocumentExtractor;
@@ -100,7 +102,7 @@ public class Convertor {
 
             is.transferTo(fos);
 
-        } catch (IOException e) {
+        } catch (IOException | JAXBException e) {
             throw new ConvertorException("Failed to save " + absTargetPath, e);
         }
     }

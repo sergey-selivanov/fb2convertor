@@ -91,14 +91,15 @@ public class Fb2Creator2 {
     }
 
 
-    public InputStream getFbook() {
+    public InputStream getFbook() throws JAXBException {
         try {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             jaxbMarshaller.marshal(fbook, out);
 
             return new ByteArrayInputStream(out.toByteArray());
         } catch (JAXBException e) {
-            throw new UnsupportedOperationException(e);
+            //throw new UnsupportedOperationException(e);
+            throw e;
         }
     }
 

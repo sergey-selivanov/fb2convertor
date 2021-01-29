@@ -20,6 +20,8 @@ import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 public final class Fb2ConvertorApp {
 
@@ -27,6 +29,7 @@ public final class Fb2ConvertorApp {
 
     private Fb2ConvertorApp() {} // utility class
 
+    @SuppressFBWarnings("CRLF_INJECTION_LOGS")
     public static void main(final String[] args) {
 
         final Options options = new Options();

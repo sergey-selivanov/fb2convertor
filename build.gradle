@@ -56,6 +56,10 @@ dependencies {
 
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0'
     spotbugsPlugins 'com.mebigfatguy.sb-contrib:sb-contrib:7.4.7'
+
+    compileOnly 'com.github.spotbugs:spotbugs-annotations:4.2.0'
+    //compileOnly 'com.github.spotbugs:spotbugs:4.2.0'
+
 }
 
 /*

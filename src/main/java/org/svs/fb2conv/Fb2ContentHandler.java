@@ -3,6 +3,8 @@ package org.svs.fb2conv;
 import java.io.InputStream;
 import java.util.Stack;
 
+import javax.xml.bind.JAXBException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
@@ -10,6 +12,7 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import fb2.PType;
 
 public class Fb2ContentHandler implements ContentHandler {
@@ -28,7 +31,7 @@ public class Fb2ContentHandler implements ContentHandler {
         inPElement = false;
     }
 
-    public InputStream getFbook() {
+    public InputStream getFbook() throws JAXBException {
         return creator.getFbook();
     }
 
@@ -57,6 +60,7 @@ public class Fb2ContentHandler implements ContentHandler {
 
 
     @Override
+    @SuppressFBWarnings("SEO_SUBOPTIMAL_EXPRESSION_ORDER")
     public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
 
         log.debug("<{}", qName);
@@ -81,7 +85,6 @@ public class Fb2ContentHandler implements ContentHandler {
             }
             else {
                 //creator.nextSection();
-
                 // div is new page in pdf?
             }
         }

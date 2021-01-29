@@ -3,6 +3,8 @@ package org.svs.fb2conv.test;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import javax.xml.bind.JAXBException;
+
 import org.junit.jupiter.api.Test;
 import org.svs.fb2conv.Fb2Creator2;
 
@@ -49,7 +51,7 @@ class Fb2Test {
                 fos = new FileOutputStream(out);
                 creator.getFbook().transferTo(fos);
                 fos.close();
-            } catch (IOException e) {
+            } catch (IOException | JAXBException e) {
                 e.printStackTrace();
             }
 
