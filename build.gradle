@@ -1,3 +1,11 @@
+/*
+    To make release and increase version:
+        gradlew -Preckon.stage=final -Preckon.scope=patch reckonTagPush
+        gradlew -Preckon.stage=final -Preckon.scope=minor reckonTagPush
+        gradlew -Preckon.stage=final -Preckon.scope=major reckonTagPush
+
+*/
+
 plugins {
     id 'application'
     id 'eclipse'
@@ -5,9 +13,9 @@ plugins {
     //id 'org.beryx.jlink' version '2.17.7' // modular
     //id 'org.beryx.runtime' version '1.8.4'  // non modular
 
-//    id 'com.github.spotbugs' version '4.2.1'
-//    id 'checkstyle'
-//    id 'pmd'
+    id 'com.github.spotbugs' version '4.6.0'
+    id 'checkstyle'
+    id 'pmd'
 
     id 'net.saliman.properties' version '1.5.1'
     id 'com.github.ben-manes.versions' version '0.36.0'
@@ -46,9 +54,25 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 
-//    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.10.1'
-//    spotbugsPlugins 'com.mebigfatguy.sb-contrib:sb-contrib:7.4.7'
+    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0'
+    spotbugsPlugins 'com.mebigfatguy.sb-contrib:sb-contrib:7.4.7'
 }
+
+/*
+sourceSets{
+    pmd {
+        java {
+            srcDirs("src/main/java")
+            exclude 'fb2/**'
+            exclude 'fb2Generator/**'
+        }
+    }
+}
+*/
+
+// tests has cyrillic and saved as unicode
+//compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
 
 import org.apache.tools.ant.filters.ReplaceTokens
 
@@ -126,7 +150,7 @@ dependencyUpdates {
 test {
     useJUnitPlatform()
     // do not perform unit tests
-    exclude 'org/sergeys/cookbook/**'
+    exclude 'org/svs/fb2conv/test/**'
 }
 
 // "the input line is too long"
@@ -137,3 +161,38 @@ startScripts {
     }
 }
 
+spotbugs {
+    ignoreFailures = true
+    onlyAnalyze = [ 'org.svs.fb2conv.*']
+//    excludeFilter = file("$projectDir/config/findbugs/excludeFilter.xml")
+}
+
+pmd {
+    //sourceSets = [sourceSets.pmd]
+    ruleSets = []
+    ruleSetFiles 'config/pmd/fb2conv.xml'
+    ignoreFailures = true
+    toolVersion = '6.30.0'
+}
+
+checkstyle {
+    ignoreFailures = true
+    toolVersion = '8.39'
+}
+
+// https://www.baeldung.com/gradle-source-sets
+task printSourceSetInformation(){
+
+    doLast{
+        sourceSets.each { srcSet ->
+            println "["+srcSet.name+"]"
+            print "-->Source directories: "+srcSet.allJava.srcDirs+"\n"
+            print "-->Output directories: "+srcSet.output.classesDirs.files+"\n"
+            print "-->Compile classpath:\n"
+            srcSet.compileClasspath.files.each {
+                //print "  "+it.path+"\n"
+            }
+            println ""
+        }
+    }
+}

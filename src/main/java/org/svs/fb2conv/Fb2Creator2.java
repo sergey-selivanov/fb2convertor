@@ -30,7 +30,7 @@ public class Fb2Creator2 {
             JAXBContext jaxbContext = JAXBContext.newInstance(FictionBook.class);
             jaxbMarshaller = jaxbContext.createMarshaller();
         } catch (JAXBException e) {
-            throw new UnsupportedOperationException();
+            throw new UnsupportedOperationException(e);
         }
 
         fbook = new FictionBook();
@@ -59,8 +59,9 @@ public class Fb2Creator2 {
     }
 
     public PType createP() {
-        PType pType = F.createPType();
-        return pType;
+        //PType pType = F.createPType();
+        //return pType;
+        return F.createPType();
     }
 
     public PType addEmphasis(PType p, String text) {
@@ -97,7 +98,7 @@ public class Fb2Creator2 {
 
             return new ByteArrayInputStream(out.toByteArray());
         } catch (JAXBException e) {
-            throw new UnsupportedOperationException();
+            throw new UnsupportedOperationException(e);
         }
     }
 

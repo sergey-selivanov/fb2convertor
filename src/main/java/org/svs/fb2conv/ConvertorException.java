@@ -2,11 +2,13 @@ package org.svs.fb2conv;
 
 public class ConvertorException extends Exception {
 
-    public ConvertorException(String string) {
+    private static final long serialVersionUID = 1L;
+
+    public ConvertorException(final String string) {
         super(string);
     }
 
-    public ConvertorException(String string, Throwable ex) {
+    public ConvertorException(final String string, final Throwable ex) {
         super(string, ex);
     }
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<properties>
+<!--
+    https://tika.apache.org/1.25/configuring.html#Using_a_Tika_Configuration_XML_file
+
+This handler can be configured to:
+    IGNORE - (Default) Do nothing when providers fail to initialize.
+    WARN - Log a warning when providers fail to initialize.
+    THROW - Throw an exception when providers fail to initialize.
+
+    INFO, WARN or THROW set actual logging level
+
+    https://stackoverflow.com/questions/48970160/how-do-i-configure-the-pom-xml-of-tika-to-stop-getting-all-the-license-dependenc
+-->
+  <service-loader loadErrorHandler="IGNORE" initializableProblemHandler="ignore"/>
+</properties>

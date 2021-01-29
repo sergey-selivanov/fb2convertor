@@ -82,7 +82,6 @@ class TikaTest {
             wr.close();
 
         } catch (IOException | SAXException | TikaException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -104,7 +103,6 @@ class TikaTest {
             is.transferTo(fos);
             fos.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -122,7 +120,6 @@ class TikaTest {
             is.transferTo(fos);
             fos.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -140,7 +137,6 @@ class TikaTest {
             is.transferTo(fos);
             fos.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -198,7 +194,6 @@ class TikaTest {
         try (InputStream stream = new FileInputStream(doc)) {
             parser.parse(stream, handler, metadata, context);
         } catch (SAXException | TikaException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

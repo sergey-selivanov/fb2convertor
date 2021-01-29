@@ -34,32 +34,22 @@ public class Fb2ContentHandler implements ContentHandler {
 
     @Override
     public void setDocumentLocator(Locator locator) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void startDocument() throws SAXException {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void endDocument() throws SAXException {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void startPrefixMapping(String prefix, String uri) throws SAXException {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void endPrefixMapping(String prefix) throws SAXException {
-        // TODO Auto-generated method stub
-
     }
 
     StringBuilder sb;

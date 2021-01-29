@@ -50,7 +50,6 @@ class Fb2Test {
                 creator.getFbook().transferTo(fos);
                 fos.close();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
