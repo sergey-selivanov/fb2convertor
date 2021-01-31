@@ -96,12 +96,11 @@ class TikaTest {
         String doc = "d:/git/fb2convertor-samples/ugh.pdf";
 
         try {
-        InputStream is = parseFb2ContentHandler(doc);
+            InputStream is = parseFb2ContentHandler(doc);
 
-        //String out = "j:/temp/fbook-output.fb2";
-        String out = "d:/git/fb2convertor-samples/output/fbook-output.fb2";
-        FileOutputStream fos;
-
+            //String out = "j:/temp/fbook-output.fb2";
+            String out = "d:/git/fb2convertor-samples/output/fbook-output.fb2";
+            FileOutputStream fos;
 
             fos = new FileOutputStream(out);
             is.transferTo(fos);
@@ -116,10 +115,10 @@ class TikaTest {
         String doc = "d:/git/fb2convertor-samples/sudmed.doc";
 
         try {
-        InputStream is = parseFb2ContentHandler(doc);
+            InputStream is = parseFb2ContentHandler(doc);
 
-        String out = "d:/git/fb2convertor-samples/output/fbook-output.fb2";
-        FileOutputStream fos;
+            String out = "d:/git/fb2convertor-samples/output/fbook-output.fb2";
+            FileOutputStream fos;
 
             fos = new FileOutputStream(out);
             is.transferTo(fos);
@@ -134,10 +133,10 @@ class TikaTest {
         String doc = "d:/git/fb2convertor-samples/gilyar.htm";
 
         try {
-        InputStream is = parseFb2ContentHandler(doc);
+            InputStream is = parseFb2ContentHandler(doc);
 
-        String out = "d:/git/fb2convertor-samples/output/fbook-output.fb2";
-        FileOutputStream fos;
+            String out = "d:/git/fb2convertor-samples/output/fbook-output.fb2";
+            FileOutputStream fos;
 
             fos = new FileOutputStream(out);
             is.transferTo(fos);
@@ -205,9 +204,9 @@ class TikaTest {
 
 
         try {
-        InputStream is = handler.getFbook();
-        String out = "d:/git/fb2convertor-samples/output/fbook-output.fb2";
-        FileOutputStream fos;
+            InputStream is = handler.getFbook();
+            String out = "d:/git/fb2convertor-samples/output/fbook-output.fb2";
+            FileOutputStream fos;
 
             fos = new FileOutputStream(out);
             is.transferTo(fos);

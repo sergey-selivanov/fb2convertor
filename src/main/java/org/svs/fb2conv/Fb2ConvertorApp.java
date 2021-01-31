@@ -61,10 +61,13 @@ public final class Fb2ConvertorApp {
             // note we're using log4j directly while slf4j should manage abstraction
             // do not close ctx after use
             //try(final LoggerContext ctx = (LoggerContext) LogManager.getContext(false)){
+            // turn off eclipse warning:
+            // Java -> Compiler -> Errors/Warnings -> Annotations -> Unhandled Warning Token.
+            // https://pmd.github.io/latest/pmd_userdocs_tools.html#eclipse
             @SuppressWarnings("PMD.CloseResource") // https://pmd.github.io/latest/pmd_userdocs_suppressing_warnings.html
             final LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
-                final Configuration config = ctx.getConfiguration();
-                final LoggerConfig loggerConfig = config.getLoggerConfig(LogManager.ROOT_LOGGER_NAME);
+            final Configuration config = ctx.getConfiguration();
+            final LoggerConfig loggerConfig = config.getLoggerConfig(LogManager.ROOT_LOGGER_NAME);
             loggerConfig.setLevel(Level.toLevel(logLevel));
             ctx.updateLoggers();
             //}
